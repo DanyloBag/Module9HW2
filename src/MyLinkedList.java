@@ -99,9 +99,7 @@ public class MyLinkedList <N>{
     }
 
     private Node<N> getNodeAtIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range: " + index);
-        }
+
         Node<N> currentNode;
         currentNode=firstNode;
         for (int i = 0; i < index; i++){
