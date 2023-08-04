@@ -56,10 +56,7 @@ public class MyHashMap <K,V>{
         size++;
     }
     public void remove(K key){
-        if(key == null){
-            throw new IllegalArgumentException("Key cannot be null.");
-        }
-
+        
         int hash = hash(key);
 
         Node<K, V> prevNode = null;
