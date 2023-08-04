@@ -25,12 +25,14 @@ public class MyHashMap <K,V>{
 
     public void put(K key, V value) {
         rebalance();
-        if (key == null) {
-            table[0] = null;
-        }
-
         int hash = hash(key);
         Node<K, V> newNode = new Node<>(key, value, null);
+
+        if(hash == 0){
+            table[0] = new Node<>(null, value, null);
+            size++;
+            return;
+        }
 
         if (table[hash] == null) {
             table[hash] = newNode;
@@ -87,16 +89,13 @@ public class MyHashMap <K,V>{
         return size;
     }
     public V get(K key){
-        if(key == null){
-            throw new IllegalArgumentException("Key cannot be null.");
-        }
 
         int hash = hash(key);
         checkIndex(hash);
         Node<K, V> currentNode = table[hash];
 
         while (currentNode != null){
-            if (currentNode.key.equals(key)) {
+            if (currentNode.key == key || (currentNode.key != null && currentNode.key.equals(key))) {
                 return currentNode.value;
             }
             currentNode = currentNode.nextNode;
@@ -106,10 +105,10 @@ public class MyHashMap <K,V>{
     }
 
     private int hash(Object key){
-        return  Math.abs(key.hashCode()) % table.length;
+        return (key == null) ? 0 : Math.abs(key.hashCode()) % table.length;
     }
     private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= table.length) {
             throw new IndexOutOfBoundsException("Index out of range: " + index);
         }
     }
