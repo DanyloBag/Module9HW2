@@ -58,9 +58,7 @@ public class MyLinkedList <N>{
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range: " + index);
-        }
+       checkIndex(index);
 
         Node<N> nodeToRemove = getNodeAtIndex(index);
         Node<N> prevNode = nodeToRemove.prevNode;

@@ -25,9 +25,7 @@ public class MyArrayList <T>{
 
 
     public void remove(int index){
-        if(index < 0 || index > size){
-            throw new IndexOutOfBoundsException("Index out of range: " + index);
-        }
+       checkIndex(index);
         System.arraycopy(values, index + 1, values, index, size - index - 1);
         size--;
     }

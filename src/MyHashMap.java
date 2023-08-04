@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 public class MyHashMap <K,V>{
 
@@ -24,8 +24,9 @@ public class MyHashMap <K,V>{
     }
 
     public void put(K key, V value) {
+        rebalance();
         if (key == null) {
-            throw new IllegalArgumentException("Key cannot be null.");
+            table[0] = null;
         }
 
         int hash = hash(key);
@@ -52,7 +53,7 @@ public class MyHashMap <K,V>{
 
         size++;
     }
-    public void remove(Object key){
+    public void remove(K key){
         if(key == null){
             throw new IllegalArgumentException("Key cannot be null.");
         }
@@ -110,6 +111,12 @@ public class MyHashMap <K,V>{
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of range: " + index);
+        }
+    }
+
+    private void rebalance(){
+        if(table.length - 1 == size){
+           table = Arrays.copyOf(table, table.length + 16);
         }
     }
 
